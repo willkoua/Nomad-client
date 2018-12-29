@@ -2,31 +2,44 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { HeaderComponent } from './header/header.component';
+import { SigninComponent } from './components/pages/login_signin/signin.component';
+import { HeaderComponent } from './components/header/header.component';
 
 import {Routes, RouterModule} from '@angular/router';
-import {AuthService} from './services/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import * as $ from 'jquery';
 
-const appRoutes: Routes = [
-  { path: 'auth/signin', component: SigninComponent },
-];
+import { SignupComponent } from './components/pages/login_signup/signup.component';
+import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import {AuthService} from './services/login/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+
+const appRoutes: Routes = [{
+  path: '',
+  component: LoginLayoutComponent,
+  children: [
+    { path: '', component: SigninComponent },
+    { path: 'signup', component: SignupComponent },
+  ]
+}];
 
 @NgModule({
   declarations: [
-    SigninComponent,
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SigninComponent,
+    SignupComponent,
+    LoginLayoutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
