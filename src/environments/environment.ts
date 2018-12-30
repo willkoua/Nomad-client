@@ -10,5 +10,6 @@ export const environment = {
   paths_api: {
     users: '/users',
     authentication: '/authentication',
+    profile: '/profile',
   },
 };

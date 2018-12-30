@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/login/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import {NotificationsService} from 'angular2-notifications';
 import {environment} from '../../../../environments/environment';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-signin',
@@ -18,7 +19,8 @@ export class SigninComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private _service: NotificationsService,
+              private userService: UserService,
+              private notificationService: NotificationsService,
               private router: Router) { }
 
   ngOnInit() {
@@ -41,7 +43,15 @@ export class SigninComponent implements OnInit {
 
     this.authService.authenticate(email, password).subscribe(
       (value) => {
-        this._service.success('Vous êtes connecté');
+        localStorage.setItem('token', value.token);
+        // get user profile
+        this.userService.getProfile().subscribe(
+          data => {
+            localStorage.setItem('userProfile', JSON.stringify(data));
+            this.notificationService.success('Vous êtes connecté');
+            this.router.navigate(['/index']);
+          }
+        );
       },
       (error) => {
         this.errorMessage = 'L\'email et/ou le mot de passe sont incorrect';

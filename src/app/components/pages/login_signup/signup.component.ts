@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/login/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import {NotificationsService} from 'angular2-notifications';
@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private _service: NotificationsService,
+              private notificationService: NotificationsService,
               private router: Router) { }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class SignupComponent implements OnInit {
 
     this.authService.createNewUser(user).subscribe(
       value => {
-        this._service.success('Enregistrement reussi', value.detail);
+        this.notificationService.success('Enregistrement reussi', value.detail);
       },
       err => {
         if (err.error.first_name) {

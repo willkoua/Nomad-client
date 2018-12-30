@@ -11,9 +11,13 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { SignupComponent } from './components/pages/login_signup/signup.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
-import {AuthService} from './services/login/auth.service';
+import {AuthService} from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { FooterComponent } from './footer/footer.component';
+import {DefaultLayoutComponent} from './layouts/default-layout/default-layout.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import {UserService} from './services/user.service';
 
 const appRoutes: Routes = [{
   path: '',
@@ -22,7 +26,14 @@ const appRoutes: Routes = [{
     { path: '', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
   ]
-}];
+},
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    children: [
+      { path: 'index', component: HomePageComponent },
+    ]
+  }];
 
 @NgModule({
   declarations: [
@@ -31,6 +42,9 @@ const appRoutes: Routes = [{
     SigninComponent,
     SignupComponent,
     LoginLayoutComponent,
+    FooterComponent,
+    DefaultLayoutComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +55,10 @@ const appRoutes: Routes = [{
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    UserService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
