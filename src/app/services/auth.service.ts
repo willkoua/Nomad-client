@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../../models/user.model';
-import GlobalService from '../globalService';
-import {environment} from '../../../environments/environment';
+import GlobalService from './globalService';
+import {environment} from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 interface AuthenticationResponse {
@@ -34,6 +33,20 @@ export class AuthService extends GlobalService {
       this.url_save_user,
       user,
       {headers: headers});
+  }
+
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      return true;
+    }
+
+    return false;
+  }
+
+  getProfile() {
+    return JSON.parse(localStorage.getItem('userProfile'));
   }
 
 }

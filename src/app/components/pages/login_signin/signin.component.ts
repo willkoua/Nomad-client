@@ -4,7 +4,6 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import {NotificationsService} from 'angular2-notifications';
-import {environment} from '../../../../environments/environment';
 import {UserService} from '../../../services/user.service';
 
 @Component({
@@ -48,7 +47,7 @@ export class SigninComponent implements OnInit {
         this.userService.getProfile().subscribe(
           data => {
             localStorage.setItem('userProfile', JSON.stringify(data));
-            this.notificationService.success('Vous êtes connecté');
+            this.notificationService.success(null, 'Vous êtes connecté');
             this.router.navigate(['/index']);
           }
         );

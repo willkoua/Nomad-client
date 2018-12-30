@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.user = JSON.parse(this.authService.getProfile());
+    this.user = this.authService.getProfile();
   }
 
 }
