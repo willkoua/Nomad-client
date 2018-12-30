@@ -30,8 +30,26 @@ export class SignupComponent implements OnInit {
       lastname: [null],
       email: [null, [Validators.required, Validators.email]],
       gender: [null],
-      password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{8,}/)]]
-    });
+      password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{8,}/)]],
+      confirmation: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{8,}/)]]
+    },
+      {validator: [
+          this.confirmationValidator(),
+        ]});
+  }
+
+  confirmationValidator() {
+    return (group: FormGroup) => {
+
+      const password = group.controls['password'];
+      const confirmation = group.controls['confirmation'];
+
+      if (password.value !== confirmation.value) {
+        return confirmation.setErrors({
+          apiError: ['La confirmation n\'est pas identique au mot de passe.']
+        });
+      }
+    };
   }
 
   onSubmit() {
@@ -66,6 +84,9 @@ export class SignupComponent implements OnInit {
         if (err.error.password) {
           this.signupForm.controls['password'].setErrors({'apiError': err.error.password});
         }
+        if (err.error.confirmation) {
+          this.signupForm.controls['gender'].setErrors({'apiError': err.error.gender});
+        }
         if (err.error.gender) {
           this.signupForm.controls['gender'].setErrors({'apiError': err.error.gender});
         }
@@ -73,7 +94,7 @@ export class SignupComponent implements OnInit {
       },
       () => {
         $btn_submit.removeAttr('disabled');
-        this.router.navigate(['/']);
+        this.router.navigate(['/signin']);
       }
     );
   }
