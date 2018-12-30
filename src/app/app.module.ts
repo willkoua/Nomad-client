@@ -18,13 +18,15 @@ import { FooterComponent } from './footer/footer.component';
 import {DefaultLayoutComponent} from './layouts/default-layout/default-layout.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import {UserService} from './services/user.service';
+import { LogoutComponent } from './components/pages/logout/logout.component';
 
 const appRoutes: Routes = [{
   path: '',
   component: LoginLayoutComponent,
   children: [
-    { path: '', component: SigninComponent },
+    { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'logout', component: LogoutComponent },
   ]
 },
   {
@@ -45,6 +47,7 @@ const appRoutes: Routes = [{
     FooterComponent,
     DefaultLayoutComponent,
     HomePageComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
