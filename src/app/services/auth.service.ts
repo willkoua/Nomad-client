@@ -1,9 +1,52 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import GlobalService from './globalService';
+import {environment} from '../../environments/environment';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
+interface AuthenticationResponse {
+  token: string;
+}
 
-  constructor() { }
+@Injectable()
+export class AuthService extends GlobalService {
+  url_save_user = environment.url_base_api + environment.paths_api.users;
+  url_authentication = environment.url_base_api + environment.paths_api.authentication;
+
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
+
+  authenticate(email: string, password: string): Observable<AuthenticationResponse> {
+    return this.httpClient.post<AuthenticationResponse>(
+      this.url_authentication,
+      {
+        login: email,
+        password: password
+      }
+    );
+  }
+
+  createNewUser(user: Object): Observable<any> {
+    const headers = this.getHeaders();
+    return this.httpClient.post<any>(
+      this.url_save_user,
+      user,
+      {headers: headers});
+  }
+
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      return true;
+    }
+
+    return false;
+  }
+
+  getProfile() {
+    return JSON.parse(localStorage.getItem('userProfile'));
+  }
+
 }
