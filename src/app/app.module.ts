@@ -19,6 +19,7 @@ import {DefaultLayoutComponent} from './layouts/default-layout/default-layout.co
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import {UserService} from './services/user.service';
 import { LogoutComponent } from './components/pages/logout/logout.component';
+import {CanActivateViaAuthGuard} from './guards/CanActivateViaAuthGuard';
 
 const appRoutes: Routes = [{
   path: '',
@@ -26,14 +27,18 @@ const appRoutes: Routes = [{
   children: [
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
-    { path: 'logout', component: LogoutComponent },
+    { path: 'logout', component: LogoutComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ] },
   ]
 },
   {
     path: '',
     component: DefaultLayoutComponent,
     children: [
-      { path: 'index', component: HomePageComponent },
+      { path: 'index', component: HomePageComponent, canActivate: [
+          CanActivateViaAuthGuard
+        ] },
     ]
   }];
 
@@ -61,6 +66,7 @@ const appRoutes: Routes = [{
   providers: [
     AuthService,
     UserService,
+    CanActivateViaAuthGuard,
   ],
   bootstrap: [AppComponent]
 })
