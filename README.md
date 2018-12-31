@@ -1,4 +1,4 @@
-# ClientNomad
+# ClientNomad [![Build Status](https://travis-ci.org/willkoua/Nomad-client.svg?branch=master)](https://travis-ci.org/willkoua/Nomad-client)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
 
