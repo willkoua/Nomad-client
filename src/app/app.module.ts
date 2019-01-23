@@ -25,7 +25,7 @@ const appRoutes: Routes = [{
   path: '',
   component: LoginLayoutComponent,
   children: [
-    { path: 'signin', component: SigninComponent },
+    { path: '', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'logout', component: LogoutComponent, canActivate: [
         CanActivateViaAuthGuard

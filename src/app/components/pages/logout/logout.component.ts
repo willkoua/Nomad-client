@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('userProfile');
     this.notificationService.success(null, 'Au revoir et à bientôt');
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/']);
   }
 
   ngOnInit() {
