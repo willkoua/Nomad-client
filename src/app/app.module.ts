@@ -20,16 +20,32 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
 import {UserService} from './services/user.service';
 import { LogoutComponent } from './components/pages/logout/logout.component';
 import {CanActivateViaAuthGuard} from './guards/CanActivateViaAuthGuard';
+import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
+import { ForgotPasswordConfirmationComponent } from './components/pages/forgot-password-confirmation/forgot-password-confirmation.component';
+import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
 
 const appRoutes: Routes = [{
   path: '',
   component: LoginLayoutComponent,
   children: [
     { path: '', component: SigninComponent },
+    {
+      path: 'forgot-password',
+      component: ForgotPasswordComponent,
+    },
+    {
+      path: 'forgot-password/confirmation',
+      component: ForgotPasswordConfirmationComponent,
+    },
+    {
+      path: 'reset-password/:token',
+      component: ResetPasswordComponent,
+    },
     { path: 'signup', component: SignupComponent },
     { path: 'logout', component: LogoutComponent, canActivate: [
         CanActivateViaAuthGuard
-      ] },
+      ]
+    },
   ]
 },
   {
@@ -38,7 +54,16 @@ const appRoutes: Routes = [{
     children: [
       { path: 'index', component: HomePageComponent, canActivate: [
           CanActivateViaAuthGuard
-        ] },
+        ]
+      },
+      {
+        path: '',
+        redirectTo: '/index',
+        pathMatch: 'full',
+        canActivate: [
+          CanActivateViaAuthGuard
+        ]
+      },
     ]
   }];
 
@@ -53,6 +78,9 @@ const appRoutes: Routes = [{
     DefaultLayoutComponent,
     HomePageComponent,
     LogoutComponent,
+    ForgotPasswordComponent,
+    ForgotPasswordConfirmationComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
