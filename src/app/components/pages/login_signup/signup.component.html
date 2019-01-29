@@ -5,6 +5,19 @@
 
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
+        <label>Qui êtes-vous?</label><br>
+        <div class="radio-inline">
+            <ul class="list-inline">
+              <li><input type="radio" value="t" formControlName="group">Je suis un touriste</li>
+              <li><input type="radio" value="g" formControlName="group">Je suis un guide</li>
+            </ul>
+        </div>
+        <div class="text-justify text-danger"
+             *ngFor="let errorMessage of signupForm.controls['gender'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
+      </div>
+      <div class="form-group">
         <label for="lastname">Nom</label>
         <input type="text"
                id="lastname"

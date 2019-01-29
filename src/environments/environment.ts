@@ -9,6 +9,7 @@ export const environment = {
   url_base_api: 'http://localhost:8000',
   paths_api: {
     users: '/users',
+    activation: '/users/activate',
     authentication: '/authentication',
     profile: '/profile',
     reset_password: '/reset_password',

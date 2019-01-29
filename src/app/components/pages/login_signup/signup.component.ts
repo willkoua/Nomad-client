@@ -30,6 +30,7 @@ export class SignupComponent implements OnInit {
       lastname: [null],
       email: [null, [Validators.required, Validators.email]],
       gender: [null],
+      group: ['t', [Validators.required]],
       password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{8,}/)]],
       confirmation: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{8,}/)]]
     },
@@ -65,6 +66,7 @@ export class SignupComponent implements OnInit {
       email: this.signupForm.get('email').value,
       password: this.signupForm.get('password').value,
       gender: this.signupForm.get('gender').value,
+      group: this.signupForm.get('group').value,
     };
 
     this.authService.createNewUser(user).subscribe(
@@ -94,7 +96,7 @@ export class SignupComponent implements OnInit {
       },
       () => {
         $btn_submit.removeAttr('disabled');
-        this.router.navigate(['/signin']);
+        this.router.navigate(['/']);
       }
     );
   }

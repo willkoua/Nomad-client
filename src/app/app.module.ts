@@ -23,6 +23,7 @@ import {CanActivateViaAuthGuard} from './guards/CanActivateViaAuthGuard';
 import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
 import { ForgotPasswordConfirmationComponent } from './components/pages/forgot-password-confirmation/forgot-password-confirmation.component';
 import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
+import { RegisterActivationComponent } from './components/pages/register-activation/register-activation.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -40,6 +41,10 @@ const appRoutes: Routes = [{
     {
       path: 'reset-password/:token',
       component: ResetPasswordComponent,
+    },
+    {
+      path: 'register/activate/:token',
+      component: RegisterActivationComponent
     },
     { path: 'signup', component: SignupComponent },
     { path: 'logout', component: LogoutComponent, canActivate: [
@@ -81,6 +86,7 @@ const appRoutes: Routes = [{
     ForgotPasswordComponent,
     ForgotPasswordConfirmationComponent,
     ResetPasswordComponent,
+    RegisterActivationComponent,
   ],
   imports: [
     BrowserModule,
