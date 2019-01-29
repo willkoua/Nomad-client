@@ -24,6 +24,7 @@ import { ForgotPasswordComponent } from './components/pages/forgot-password/forg
 import { ForgotPasswordConfirmationComponent } from './components/pages/forgot-password-confirmation/forgot-password-confirmation.component';
 import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
 import { RegisterActivationComponent } from './components/pages/register-activation/register-activation.component';
+import { PageNotfoundComponent } from './components/pages/page-notfound/page-notfound.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -53,24 +54,34 @@ const appRoutes: Routes = [{
     },
   ]
 },
-  {
-    path: '',
-    component: DefaultLayoutComponent,
-    children: [
-      { path: 'index', component: HomePageComponent, canActivate: [
-          CanActivateViaAuthGuard
-        ]
-      },
-      {
-        path: '',
-        redirectTo: '/index',
-        pathMatch: 'full',
-        canActivate: [
-          CanActivateViaAuthGuard
-        ]
-      },
-    ]
-  }];
+{
+  path: '',
+  component: DefaultLayoutComponent,
+  children: [
+    { path: 'index', component: HomePageComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
+    {
+      path: '',
+      redirectTo: '/index',
+      pathMatch: 'full',
+      canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
+  ]
+},
+{
+  path: '',
+  component: LoginLayoutComponent,
+  children: [
+    {
+      path: '**',
+      component: PageNotfoundComponent
+    }
+  ],
+}];
 
 @NgModule({
   declarations: [
@@ -87,6 +98,7 @@ const appRoutes: Routes = [{
     ForgotPasswordConfirmationComponent,
     ResetPasswordComponent,
     RegisterActivationComponent,
+    PageNotfoundComponent,
   ],
   imports: [
     BrowserModule,
