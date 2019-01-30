@@ -46,6 +46,19 @@ export class SigninComponent implements OnInit {
         // get user profile
         this.userService.getProfile().subscribe(
           data => {
+            console.log(data)
+
+            // const nw_data = {
+            //   'id': data.id,
+            //   'email': "willkoua@yahoo.fr"
+            //   'first_name': "willy"
+            //   'groups': [15]
+            //   'id': 1
+            //   'is_active': true
+            //   'is_superuser': true
+            //   'last_name': "kouagnia"
+            // }
+
             localStorage.setItem('userProfile', JSON.stringify(data));
             this.notificationService.success(null, 'Vous êtes connecté');
             this.router.navigate(['/index']);
