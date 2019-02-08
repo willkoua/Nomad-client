@@ -8,7 +8,9 @@ export class User extends BaseModel {
   email: string;
   is_active: boolean;
   is_superuser: boolean;
-  group: string;
+  groups: string;
   gender: string;
   password: string;
+  date_joined: string;
+
 }

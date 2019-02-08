@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {UserService} from '../../../services/user.service';
 import * as $ from 'jquery';
+import {User} from '../../../models/user.model';
 
 @Component({
   selector: 'app-profile-user',
@@ -11,9 +12,12 @@ import * as $ from 'jquery';
 })
 export class ProfileUserComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  user: User;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.user = this.authService.getProfile();
   }
 
 }
