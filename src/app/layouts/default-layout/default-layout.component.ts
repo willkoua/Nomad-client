@@ -4,15 +4,15 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-default-layout',
   template: `
     <div id="container">
-      <div id="header">
+      <header>
         <app-header></app-header>
-      </div>
-      <div id="content">
+      </header>
+      <div class="container-fluid">
         <router-outlet></router-outlet>
       </div>
-      <div id="footer">
+      <footer>
         <app-footer></app-footer>
-      </div>
+      </footer>
     </div>
   `,
   styles: []
