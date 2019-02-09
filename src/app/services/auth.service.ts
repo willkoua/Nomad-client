@@ -10,7 +10,6 @@ interface AuthenticationResponse {
 
 @Injectable()
 export class AuthService extends GlobalService {
-  url_save_user = environment.url_base_api + environment.paths_api.users;
   url_authentication = environment.url_base_api + environment.paths_api.authentication;
   url_reset_password = environment.url_base_api + environment.paths_api.reset_password;
   url_change_password = environment.url_base_api + environment.paths_api.change_password;
@@ -27,14 +26,6 @@ export class AuthService extends GlobalService {
         password: password
       }
     );
-  }
-
-  createNewUser(user: Object): Observable<any> {
-    const headers = this.getHeaders();
-    return this.httpClient.post<any>(
-      this.url_save_user,
-      user,
-      {headers: headers});
   }
 
   resetPassword(email: string): Observable<any> {
