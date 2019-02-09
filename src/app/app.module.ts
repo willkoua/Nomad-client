@@ -25,6 +25,8 @@ import { ForgotPasswordConfirmationComponent } from './components/pages/forgot-p
 import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
 import { RegisterActivationComponent } from './components/pages/register-activation/register-activation.component';
 import { PageNotfoundComponent } from './components/pages/page-notfound/page-notfound.component';
+import {ProfileUserComponent} from './components/pages/profile-user/profile-user.component';
+import { ProfileUserUpdateComponent } from './components/pages/profile-user-update/profile-user-update.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -59,6 +61,14 @@ const appRoutes: Routes = [{
   component: DefaultLayoutComponent,
   children: [
     { path: 'index', component: HomePageComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
+    { path: 'profile', component: ProfileUserComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
+    { path: 'profile/update', component: ProfileUserUpdateComponent, canActivate: [
         CanActivateViaAuthGuard
       ]
     },
@@ -99,6 +109,8 @@ const appRoutes: Routes = [{
     ResetPasswordComponent,
     RegisterActivationComponent,
     PageNotfoundComponent,
+    ProfileUserComponent,
+    ProfileUserUpdateComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="row">
+    <h1>Créer un compte</h1>
+    <hr>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <form [formGroup]="updateUserForm" (ngSubmit)="onSubmitUpdateUser()">
+
+        <section>
+          <h3>Modifier votre profile</h3>
+        </section>
+
+        <div class="form-group">
+          <label for="lastname">Nom</label>
+          <input type="text"
+                 id="lastname"
+                 class="form-control"
+                 formControlName="lastname">
+          <div class="text-justify text-danger"
+               *ngFor="let errorMessage of updateUserForm.controls['lastname'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="firstname">Prenom</label>
+          <input type="text"
+                 id="firstname"
+                 class="form-control"
+                 formControlName="firstname">
+          <div class="text-justify text-danger"
+               *ngFor="let errorMessage of updateUserForm.controls['firstname'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Adresse mail</label>
+          <input type="text"
+                 id="email"
+                 class="form-control"
+                 formControlName="email">
+          <div class="text-justify text-danger"
+               *ngFor="let errorMessage of updateUserForm.controls['email'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Sexe</label><br>
+          <div class="radio-inline">
+            <label><input type="radio" value="M" formControlName="gender"> Homme</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <label><input type="radio" value="F" formControlName="gender"> Femme</label>
+          </div>
+          <div class="text-justify text-danger"
+               *ngFor="let errorMessage of updateUserForm.controls['gender'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit"
+                [disabled]="updateUserForm.invalid">Modifier</button>
+
+      </form>
+
+    </div>
+
+    <div class="col-md-4">
+      <section>
+        <h3>Modifier votre mot de passe</h3>
+      </section>
+      <form  [formGroup]="updatePwdForm" (ngSubmit)="onSubmitPwdUser()">
+        <div class="form-group">
+          <label for="apassword">Actuel mot de passe</label>
+          <input type="password"
+                 id="apassword"
+                 class="form-control"
+                 formControlName="apassword">
+          <div class="text-justify text-danger"
+               *ngFor="let errorMessage of updatePwdForm.controls['apassword'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Nouveau mot de passe</label>
+          <input type="password"
+                 id="password"
+                 class="form-control"
+                 formControlName="password">
+          <div class="text-justify text-danger"
+               *ngFor="let errorMessage of updatePwdForm.controls['password'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="form_password_confirmation">
+            Confirmation du mot de passe
+          </label>
+          <input formControlName="confirmation"
+                 id="form_password_confirmation"
+                 class="form-control"
+                 type="password">
+          <div class="text-danger"
+               *ngFor="let errorMessage of updatePwdForm.controls['confirmation'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit"
+                [disabled]="updatePwdForm.invalid">Modifier</button>
+      </form>
+    </div>
+  </div>
+</div>

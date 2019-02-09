@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import {NotificationsService} from 'angular2-notifications';
@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
+              private userService: UserService,
               private notificationService: NotificationsService,
               private router: Router) { }
 
@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit {
       group: this.signupForm.get('group').value,
     };
 
-    this.authService.createNewUser(user).subscribe(
+    this.userService.createNewUser(user).subscribe(
       value => {
         this.notificationService.success('Enregistrement reussi', value.detail);
       },
@@ -100,5 +100,4 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-
 }
