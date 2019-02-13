@@ -3,9 +3,9 @@ import {environment} from '../../environments/environment';
 
 export default class GlobalService {
 
-  getHeaders() {
+  getHeaders(content_type = 'application/json') {
     const options = {
-      'Content-Type': 'application/json',
+      'Content-Type': content_type,
       'Accept-Language': environment.default_language,
     };
 

@@ -11,7 +11,7 @@ import {User} from '../../../models/user.model';
 @Component({
   selector: 'app-profile-user-update',
   templateUrl: './profile-user-update.component.html',
-  styleUrls: ['./profile-user-update.component.css']
+  styleUrls: ['./profile-user-update.component.scss']
 })
 export class ProfileUserUpdateComponent implements OnInit {
 
