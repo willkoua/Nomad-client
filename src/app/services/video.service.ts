@@ -21,8 +21,8 @@ export class VideoService extends GlobalService {
       type: 'uploadAll',
       url: this.url_save_video,
       headers: { 'Authorization': 'Token ' + localStorage.getItem('token') },
-      method: 'POST',
-      data: { foo: 'bar' }
+      method: 'POST'
+      // data: { foo: 'bar' }
     };
   }
 

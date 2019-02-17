@@ -21,6 +21,7 @@ export class RegisterVideoComponent implements OnInit {
   errors: string[];
   form2AddVideoForm: FormGroup;
   videos: object[];
+  showFormVideo: boolean
 
   constructor(
     private form2AddVideoBuilder: FormBuilder,
@@ -28,6 +29,7 @@ export class RegisterVideoComponent implements OnInit {
     private notificationService: NotificationsService,
     private router: Router
   ) {
+
     this.options = {
       concurrency: 1,
       // allowedContentTypes: ['mp4'],
@@ -36,14 +38,13 @@ export class RegisterVideoComponent implements OnInit {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
+    this.errors = [];
 
     this.videos = [];
-    this.errors = [];
+    this.showFormVideo = false;
   }
 
-  ngOnInit() {
-    this.initForm();
-  }
+  ngOnInit() {}
 
   initForm() {
     this.form2AddVideoForm = this.form2AddVideoBuilder.group({
@@ -57,6 +58,7 @@ export class RegisterVideoComponent implements OnInit {
     if (output.type === 'allAddedToQueue') {
       // if you want to start the upload directly
     } else if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
+      this.errors = [];
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
       const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
@@ -73,21 +75,27 @@ export class RegisterVideoComponent implements OnInit {
       this.errors.push(output.file.name + ' rejected.');
     } else if (output.type === 'done' && typeof output.file.response !== 'undefined') {
 
-      if (output.file.response.hasOwnProperty('file') && typeof output.file.response.file === 'object') {
-        this.errors.push(output.file.response.file);
-        return;
-      }
+      if (output.file.response.hasOwnProperty('file') &&
+        typeof output.file.response.file === 'object' ||
+        output.file.responseStatus === 400) {
 
-      this.videos.push(output.file.response.id);
-      this.initForm();
+        this.showFormVideo = false;
+        this.errors.push(output.file.name + ' ' + output.file.response);
+        this.files = [];
+        // return;
+      } else {
+        this.videos.push(output.file.response.id);
+        this.showFormVideo = true;
+        this.initForm();
+      }
     }
+
     this.files = this.files.filter(file => file.progress.status !== UploadStatus.Done);
   }
 
   startUpload(): void {
     const event = this.videoService.createNewVideo();
     this.uploadInput.emit(event);
-
   }
 
   cancelUpload(id: string): void {
@@ -100,7 +108,7 @@ export class RegisterVideoComponent implements OnInit {
 
   removeAllFiles(): void {
     this.uploadInput.emit({ type: 'removeAll' });
-    window.location.reload();
+    this.files = [];
   }
 
   onSubmit() {
@@ -109,16 +117,18 @@ export class RegisterVideoComponent implements OnInit {
       title: this.form2AddVideoForm.get('title').value,
       description: this.form2AddVideoForm.get('description').value
     };
+
     this.videoService.updateVideo(video, video.id).subscribe(
       value => {
-        console.log(value);
+
       },
       error => {
-        console.log(error);
+        this.showFormVideo = true;
       },
       () => {
+        this.showFormVideo = false;
         this.notificationService.success(null, 'Votre vidéo a été enregistrée');
-        window.location.reload();
+        this.videos = [];
       });
   }
 }
