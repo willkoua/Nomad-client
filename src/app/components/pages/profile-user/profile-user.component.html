@@ -13,7 +13,7 @@
         <li>Email : {{ this.user.email }}</li>
         <li>Gender : {{ this.user.gender }}</li>
         <li>Groupe : {{ this.user.groups[0].name }}</li>
-        <li>Join le : {{ this.user.date_joined }}</li>
+        <li>Join le : {{ this.user.date_joined | date:'medium' }}</li>
       </ul>
     </div>
 
