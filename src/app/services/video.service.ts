@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import GlobalService from './globalService';
 import {UploadInput} from 'ngx-uploader';
+import {HttpParams, HttpParamsOptions} from '@angular/common/http/src/params';
+import {Video} from '../models/video.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +40,7 @@ export class VideoService extends GlobalService {
   public getListVideos() {
     const headers = this.getHeaders();
 
-    return this.httpClient.get<any>(
+    return this.httpClient.get<Video[]>(
       this.url_save_list_video,
       {headers: headers}
     );

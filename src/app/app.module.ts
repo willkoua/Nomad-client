@@ -29,6 +29,7 @@ import { NgxUploaderModule } from 'ngx-uploader';
 import {VideoService} from './services/video.service';
 import { ProfileUserHeaderComponent } from './components/pages/profile-user-header/profile-user-header.component';
 import { VideoRegisterComponent } from './components/pages/video-register/video-register.component';
+import { UserProfileVideosComponent } from './components/pages/user-profile-videos/user-profile-videos.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -78,6 +79,10 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
+    { path: 'video/user', component: UserProfileVideosComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
     {
       path: '',
       redirectTo: '/index',
@@ -119,6 +124,7 @@ const appRoutes: Routes = [{
     ProfileUserUpdateComponent,
     ProfileUserHeaderComponent,
     VideoRegisterComponent,
+    UserProfileVideosComponent,
   ],
   imports: [
     BrowserModule,

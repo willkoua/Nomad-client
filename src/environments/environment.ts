@@ -15,8 +15,8 @@ export const environment = {
     reset_password: '/reset_password',
     change_password: '/change_password',
     video: {
-      create_list: '/videos/',
-      update: '/videos/update/',
+      create_list: '/videos/?param=user',
+      update: '/videos/',
     }
   },
 };
