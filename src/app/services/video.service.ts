@@ -9,8 +9,8 @@ import {UploadInput} from 'ngx-uploader';
   providedIn: 'root'
 })
 export class VideoService extends GlobalService {
-  url_update_video = environment.url_base_api + environment.paths_api.videos;
-  url_save_video = environment.url_base_api + environment.paths_api.video_upload;
+  url_update_video = environment.url_base_api + environment.paths_api.video.update;
+  url_save_list_video = environment.url_base_api + environment.paths_api.video.create_list;
 
   constructor(private httpClient: HttpClient) {
     super();
@@ -19,14 +19,14 @@ export class VideoService extends GlobalService {
   public createNewVideo(): UploadInput {
     return  {
       type: 'uploadAll',
-      url: this.url_save_video,
+      url: this.url_save_list_video,
       headers: { 'Authorization': 'Token ' + localStorage.getItem('token') },
       method: 'POST'
       // data: { foo: 'bar' }
     };
   }
 
-  updateVideo(video: Object, id: number): Observable<any> {
+  public updateVideo(video: Object, id: number): Observable<any> {
     const headers = this.getHeaders();
 
     return this.httpClient.patch<any>(
@@ -34,4 +34,14 @@ export class VideoService extends GlobalService {
       video,
       {headers: headers});
   }
+
+  public getListVideos() {
+    const headers = this.getHeaders();
+
+    return this.httpClient.get<any>(
+      this.url_save_list_video,
+      {headers: headers}
+    );
+  }
+
 }

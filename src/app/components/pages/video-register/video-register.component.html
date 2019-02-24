@@ -18,9 +18,9 @@
             <div class="middle-info">
               <div class="back-text">Déposé votre projet</div>
 
-                <input type="file" ngFileSelect [options]="options" #selectVideo
-                       (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
-                       multiple accept="video/mp4, video/webm">
+              <input type="file" ngFileSelect [options]="options" #selectVideo
+                     (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                     multiple accept="video/mp4, video/webm">
 
               <button (click)="selectVideo.click()">Selectionner votre projet</button>
             </div>

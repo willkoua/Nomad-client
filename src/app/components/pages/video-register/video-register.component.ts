@@ -1,17 +1,16 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput, UploadStatus} from 'ngx-uploader';
+import {VideoService} from '../../../services/video.service';
+import {NotificationsService} from 'angular2-notifications';
 import {Router} from '@angular/router';
 
-import {NotificationsService} from 'angular2-notifications';
-import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions, UploadStatus } from 'ngx-uploader';
-import { VideoService} from '../../../services/video.service';
-
 @Component({
-  selector: 'app-register-video',
-  templateUrl: './register-video.component.html',
-  styleUrls: ['./register-video.component.scss']
+  selector: 'app-video-register',
+  templateUrl: './video-register.component.html',
+  styleUrls: ['./video-register.component.scss']
 })
-export class RegisterVideoComponent implements OnInit {
+export class VideoRegisterComponent implements OnInit {
 
   options: UploaderOptions;
   files: UploadFile[];
@@ -29,7 +28,6 @@ export class RegisterVideoComponent implements OnInit {
     private notificationService: NotificationsService,
     private router: Router
   ) {
-
     this.options = {
       concurrency: 1,
       // allowedContentTypes: ['mp4'],
@@ -42,16 +40,6 @@ export class RegisterVideoComponent implements OnInit {
 
     this.videos = [];
     this.showFormVideo = false;
-  }
-
-  ngOnInit() {}
-
-  initForm() {
-    this.form2AddVideoForm = this.form2AddVideoBuilder.group({
-      id: [this.videos[0], [Validators.required]],
-      title: [null, [Validators.required]],
-      description: [null],
-    });
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -77,20 +65,30 @@ export class RegisterVideoComponent implements OnInit {
 
       if (output.file.response.hasOwnProperty('file') &&
         typeof output.file.response.file === 'object' ||
-        output.file.responseStatus === 400) {
+        output.file.responseStatus !== 201) {
 
         this.showFormVideo = false;
-        this.errors.push(output.file.name + ' ' + output.file.response);
+        this.errors.push(output.file.response);
         this.files = [];
-        // return;
-      } else {
-        this.videos.push(output.file.response.id);
-        this.showFormVideo = true;
-        this.initForm();
+        return;
       }
+
+      this.videos.push(output.file.response.id);
+      this.showFormVideo = true;
+      this.initForm();
     }
 
     this.files = this.files.filter(file => file.progress.status !== UploadStatus.Done);
+  }
+
+  ngOnInit() {}
+
+  initForm() {
+    this.form2AddVideoForm = this.form2AddVideoBuilder.group({
+      id: [this.videos[0], [Validators.required]],
+      title: [null, [Validators.required]],
+      description: [null],
+    });
   }
 
   startUpload(): void {
@@ -131,4 +129,5 @@ export class RegisterVideoComponent implements OnInit {
         this.videos = [];
       });
   }
+
 }

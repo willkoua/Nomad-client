@@ -25,9 +25,10 @@ import { RegisterActivationComponent } from './components/pages/register-activat
 import { PageNotfoundComponent } from './components/pages/page-notfound/page-notfound.component';
 import {ProfileUserComponent} from './components/pages/profile-user/profile-user.component';
 import { ProfileUserUpdateComponent } from './components/pages/profile-user-update/profile-user-update.component';
-import { RegisterVideoComponent } from './components/pages/register-video/register-video.component';
 import { NgxUploaderModule } from 'ngx-uploader';
 import {VideoService} from './services/video.service';
+import { ProfileUserHeaderComponent } from './components/pages/profile-user-header/profile-user-header.component';
+import { VideoRegisterComponent } from './components/pages/video-register/video-register.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -73,7 +74,7 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
-    { path: 'video', component: RegisterVideoComponent, canActivate: [
+    { path: 'video', component: VideoRegisterComponent, canActivate: [
         CanActivateViaAuthGuard
       ]
     },
@@ -116,7 +117,8 @@ const appRoutes: Routes = [{
     PageNotfoundComponent,
     ProfileUserComponent,
     ProfileUserUpdateComponent,
-    RegisterVideoComponent,
+    ProfileUserHeaderComponent,
+    VideoRegisterComponent,
   ],
   imports: [
     BrowserModule,
