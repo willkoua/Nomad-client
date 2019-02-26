@@ -31,6 +31,7 @@ import { ProfileUserHeaderComponent } from './components/pages/profile-user-head
 import { VideoRegisterComponent } from './components/pages/video-register/video-register.component';
 import { UserProfileVideosComponent } from './components/pages/user-profile-videos/user-profile-videos.component';
 import { UserProfileVideosUpdateComponent } from './components/pages/user-profile-videos-update/user-profile-videos-update.component';
+import { UserProfileVideosRegisterComponent } from './components/pages/user-profile-videos-register/user-profile-videos-register.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -76,7 +77,7 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
-    { path: 'video', component: VideoRegisterComponent, canActivate: [
+    { path: 'video', component: UserProfileVideosRegisterComponent, canActivate: [
         CanActivateViaAuthGuard
       ]
     },
@@ -131,6 +132,7 @@ const appRoutes: Routes = [{
     VideoRegisterComponent,
     UserProfileVideosComponent,
     UserProfileVideosUpdateComponent,
+    UserProfileVideosRegisterComponent,
   ],
   imports: [
     BrowserModule,

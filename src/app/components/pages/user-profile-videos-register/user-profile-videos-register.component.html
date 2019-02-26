@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row">
+    <h1>Envoyer votre projet</h1>
+  </div>
+  <div class="row">
+    <app-profile-user-header></app-profile-user-header>
+  </div>
+  <div class="row" *ngIf="!showFormVideo">
+    <div class="col-md-12">
+      <div class="upload-box">
+
+        <div class="upload-box__header">
+          <div class="upload-box__header__title">
+            <h2>Envoyer votre projet</h2>
+          </div>
+        </div>
+
+        <div class="upload-box__content">
+          <div class="upload-box__content__drop-container" ngFileDrop [options]="options"
+               (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+            <div class="middle-info">
+              <div class="back-text">Déposé votre projet</div>
+
+              <input type="file" ngFileSelect [options]="options" #selectVideo
+                     (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                     multiple accept="video/mp4, video/webm">
+
+              <button (click)="selectVideo.click()">Selectionner votre projet</button>
+            </div>
+          </div>
+          <div class="upload-box__content__items" *ngFor="let f of files; let i = index;">
+            <div class="upload-box__content__items__content">
+              <div class="upload-box__content__items__content__filename">
+                <div class="filename-left float-left">
+                  <i class="fas fa-file-upload"></i>&nbsp;&nbsp;
+                  <span>{{ f.name }}</span>
+                </div>
+                <div class="filename-right">
+                  <i class="fas fa-times-circle" *ngIf="f?.progress?.data?.percentage>0" (click)="cancelUpload(f.id)"></i>
+                  <i class="fas fa-times-circle" *ngIf="f?.progress?.data?.percentage===0" (click)="removeFile(f.id)"></i>
+                </div>
+              </div>
+              <div class="upload-box__content__items__content__progress-content">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                       [style.width]="f?.progress?.data?.percentage + '%'"
+                       [class.is-done]="f?.progress?.data?.percentage === 100"></div>
+                </div>
+              </div>
+              <div class="upload-box__content__items__content__progress-text-content">
+                <span class="progress-text" [class.is-done]="f?.progress?.data?.percentage === 100">
+                  <span>{{ f.progress?.data?.percentage }}% </span>
+                  <span *ngIf="f.progress?.data?.percentage !== 100">Uploading...</span>
+                  <span *ngIf="f.progress?.data?.percentage === 100">Done</span>
+                </span>
+                <span class="speed-and-eta-text" *ngIf="f.progress?.data?.percentage !== 0 && f.progress?.data?.percentage !== 100">
+                  <span>{{ f.progress?.data?.speedHuman }} </span>
+                  <span>ETA {{ f.progress?.data?.etaHuman }}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <button class="btn btn-primary" (click)="startUpload()">Envoyer</button>
+            &nbsp;&nbsp;
+            <button class="btn btn-danger" *ngIf="files.length > 0" (click)="removeAllFiles()">Supprimer tout</button>
+          </div>
+          <div class="col-md-9">
+            <div class="text-justify text-danger"
+                 *ngFor="let errorMessage of errors">
+              {{ errorMessage}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="showFormVideo">
+    <form [formGroup]="form2AddVideoForm" (ngSubmit)="onSubmit()">
+
+      <section>
+        <h3>Enregistrer votre vidéo</h3>
+      </section>
+
+      <div>
+        <input type="hidden" formControlName="id">
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text"
+                 id="title"
+                 class="form-control"
+                 formControlName="title">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea name="" id="description" cols="30" rows="10" formControlName="description"
+                    class="form-control" id="description"></textarea>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="submit"
+              [disabled]="form2AddVideoForm.invalid">Modifier</button>
+
+    </form>
+  </div>
+</div>
+
