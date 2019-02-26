@@ -9,19 +9,22 @@
     <app-profile-user-header></app-profile-user-header>
 
     <div class="row">
-      <ul class="list-group list-group-flush">
+      <ul class="list-group list-group-flush" *ngIf="listVideos">
         <li class="list-group-item" *ngFor="let video of listVideos" >
-          <a href="">{{video.title}}</a>
+          <a href="">{{video.title ? video.title : 'no title'}}</a>
           <ul class="list-inline">
             <li class="list-inline-item">
-              [<a href=""><i><small>Modifier</small></i></a>
+              [<a [routerLink]="['/video/update', video.id]"><i><small>Modifier</small></i></a>
             </li>
             <li class="list-inline-item">
-              <a href=""><i><small>Supprimer</small></i></a>]
+              <a (click)="deleteVideo(video)"><i><small>Supprimer</small></i></a>]
             </li>
           </ul>
         </li>
       </ul>
+      <div class="alert alert-success" role="alert" *ngIf="listVideos.length == 0">
+        Aucune video n'est actuellement disponible
+      </div>
     </div>
 
     <div class="row"><a class="nav-link" routerLink="/profile/update" tabindex="-1">Modifier votre profile</a></div>

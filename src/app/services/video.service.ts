@@ -40,8 +40,27 @@ export class VideoService extends GlobalService {
   public getListVideos() {
     const headers = this.getHeaders();
 
-    return this.httpClient.get<Video[]>(
+    return this.httpClient.get<any>(
       this.url_save_list_video,
+      {headers: headers}
+    );
+  }
+
+  public getVideo(id: number) {
+    const headers = this.getHeaders();
+
+    return this.httpClient.get<any>(
+      this.url_update_video,
+      {headers: headers}
+    );
+  }
+
+  public deleteVideo(video: Video) {
+    const headers = this.getHeaders();
+
+    return this.httpClient.patch<any>(
+      this.url_update_video + video.id,
+      video,
       {headers: headers}
     );
   }
