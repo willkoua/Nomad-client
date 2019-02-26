@@ -1,5 +1,6 @@
 import BaseModel from './baseModel';
 import {User} from './user.model';
+import DateTimeFormat = Intl.DateTimeFormat;
 
 export class Video extends BaseModel {
 
@@ -10,4 +11,6 @@ export class Video extends BaseModel {
   duration: number;
   file: string;
   size: number;
+  is_deleted: Date;
+  is_actived: Date;
 }

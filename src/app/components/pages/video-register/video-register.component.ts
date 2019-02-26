@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput, UploadStatus} from 'ngx-uploader';
 import {VideoService} from '../../../services/video.service';
 import {NotificationsService} from 'angular2-notifications';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-video-register',
@@ -26,7 +25,6 @@ export class VideoRegisterComponent implements OnInit {
     private form2AddVideoBuilder: FormBuilder,
     private videoService: VideoService,
     private notificationService: NotificationsService,
-    private router: Router
   ) {
     this.options = {
       concurrency: 1,
@@ -127,7 +125,8 @@ export class VideoRegisterComponent implements OnInit {
         this.showFormVideo = false;
         this.notificationService.success(null, 'Votre vidéo a été enregistrée');
         this.videos = [];
-      });
+      }
+    );
   }
 
 }

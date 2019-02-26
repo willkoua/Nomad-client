@@ -2,6 +2,9 @@
   <div class="row">
     <h1>Envoyer votre projet</h1>
   </div>
+  <div class="row">
+    <app-profile-user-header></app-profile-user-header>
+  </div>
   <div class="row" *ngIf="!showFormVideo">
     <div class="col-md-12">
       <div class="upload-box">
@@ -85,7 +88,7 @@
       </section>
 
       <div>
-        <input type="hidden" [value]="videos[0]">
+        <input type="hidden" formControlName="id">
 
         <div class="form-group">
           <label for="title">Title</label>

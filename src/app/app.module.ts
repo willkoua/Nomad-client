@@ -30,6 +30,7 @@ import {VideoService} from './services/video.service';
 import { ProfileUserHeaderComponent } from './components/pages/profile-user-header/profile-user-header.component';
 import { VideoRegisterComponent } from './components/pages/video-register/video-register.component';
 import { UserProfileVideosComponent } from './components/pages/user-profile-videos/user-profile-videos.component';
+import { UserProfileVideosUpdateComponent } from './components/pages/user-profile-videos-update/user-profile-videos-update.component';
 
 const appRoutes: Routes = [{
   path: '',
@@ -83,6 +84,10 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
+    { path: 'video/update/:id', component: UserProfileVideosUpdateComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
     {
       path: '',
       redirectTo: '/index',
@@ -125,6 +130,7 @@ const appRoutes: Routes = [{
     ProfileUserHeaderComponent,
     VideoRegisterComponent,
     UserProfileVideosComponent,
+    UserProfileVideosUpdateComponent,
   ],
   imports: [
     BrowserModule,
