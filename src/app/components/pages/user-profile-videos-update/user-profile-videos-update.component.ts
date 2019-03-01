@@ -38,7 +38,7 @@ export class UserProfileVideosUpdateComponent implements OnInit {
 
     this.videoService.getVideo(+id).subscribe(
       value => {
-        this.video = value.results[0];
+        this.video = value;
       },
       error => {
         this.notificationService.error(null, 'video not found');
@@ -53,16 +53,19 @@ export class UserProfileVideosUpdateComponent implements OnInit {
   initForm() {
     this.formUpdateVideo = this.formUpdateVideoBuider.group({
       id: [this.video ? this.video.id : null, [Validators.required]],
+      active: [this.video ? this.video.is_active ? '1' : '0' : '0', [Validators.required]],
       title: [this.video ? this.video.title : null],
       description: [this.video ? this.video.description : null],
     });
   }
 
   onSubmit() {
+
     const video = {
       id: this.formUpdateVideo.get('id').value,
       title: this.formUpdateVideo.get('title').value,
-      description: this.formUpdateVideo.get('description').value
+      description: this.formUpdateVideo.get('description').value,
+      is_actived: (this.formUpdateVideo.get('active').value === '1') ? new Date : new Date('1960-01-01')
     };
 
     this.videoService.updateVideo(video, video.id).subscribe(
