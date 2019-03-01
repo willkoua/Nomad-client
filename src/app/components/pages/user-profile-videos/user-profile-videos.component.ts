@@ -3,26 +3,32 @@ import {VideoService} from '../../../services/video.service';
 import {Video} from '../../../models/video.model';
 import {User} from '../../../models/user.model';
 import {AuthService} from '../../../services/auth.service';
-import {filter} from 'rxjs-compat/operator/filter';
 import {NotificationsService} from 'angular2-notifications';
-import {Router} from '@angular/router';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-profile-videos',
   templateUrl: './user-profile-videos.component.html',
-  styleUrls: ['./user-profile-videos.component.css']
+  styleUrls: ['./user-profile-videos.component.css'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class UserProfileVideosComponent implements OnInit {
 
   listVideos: Video[];
   user: User;
+  videoAtDelete: Video;
 
   constructor(
     private videoService: VideoService,
     private authService: AuthService,
     private notificationService: NotificationsService,
-    private router: Router
-  ) { }
+    config: NgbModalConfig,
+    private modalService: NgbModal
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+    this.videoAtDelete = null;
+  }
 
   ngOnInit() {
     this.user = this.authService.getProfile();
@@ -38,19 +44,21 @@ export class UserProfileVideosComponent implements OnInit {
     );
   }
 
-  deleteVideo(video: Video) {
-    video.is_deleted = new Date();
+  deleteVideo() {
+    this.videoAtDelete.is_deleted = new Date();
 
-    this.videoService.deleteVideo(video).subscribe(
+    this.videoService.deleteVideo(this.videoAtDelete).subscribe(
       value => {
-        const oldTabSize = this.listVideos.length
+        const oldTabSize = this.listVideos.length - 1
         const index = this.listVideos.findIndex((x) => x.id === value.id);
         this.listVideos.splice(index, 1);
         const newTabSize = this.listVideos.length
-        if ((oldTabSize - 1) < newTabSize) {
+
+        if (oldTabSize <= newTabSize) {
+          const video_title = value.title ? value.title : 'video';
           this.notificationService.error(
             null,
-            value.title ? value.title : 'Une video' + ' a été supprimée');
+            video_title + ' a été supprimée');
         } else {
           this.notificationService.info(
             'Possible erreur',
@@ -63,8 +71,16 @@ export class UserProfileVideosComponent implements OnInit {
       },
       error => {
         // console.log(error);
+      },
+      () => {
+        this.modalService.dismissAll();
       }
     );
+  }
+
+  active_modal(content, video: Video) {
+    this.modalService.open(content);
+    this.videoAtDelete = video;
   }
 
 }

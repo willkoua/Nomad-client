@@ -12,12 +12,19 @@
       <ul class="list-group list-group-flush" *ngIf="listVideos">
         <li class="list-group-item" *ngFor="let video of listVideos" >
           <a href="">{{video.title ? video.title : 'no title'}}</a>
+          <small *ngIf="!video.is_active"><i class="badge badge-danger">inactif</i></small>
           <ul class="list-inline">
             <li class="list-inline-item">
               [<a [routerLink]="['/video/update', video.id]"><i><small>Modifier</small></i></a>
             </li>
             <li class="list-inline-item">
-              <a (click)="deleteVideo(video)"><i><small>Supprimer</small></i></a>]
+              <a [routerLink]="['/video/details', video.id]" class="btn btn-link"><i><small>Détail</small></i></a>
+            </li>
+            <li class="list-inline-item">
+              <!--<a (click)="deleteVideo(video)" class="btn btn-link"><i><small>Supprimer</small></i></a>]-->
+              <a class="btn btn-link" (click)="active_modal(content, video)">
+                <i><small>Supprimer</small></i>
+              </a>]
             </li>
           </ul>
         </li>
@@ -27,8 +34,23 @@
       </div>
     </div>
 
-    <div class="row"><a class="nav-link" routerLink="/profile/update" tabindex="-1">Modifier votre profile</a></div>
-
+    <div class="row">
+      <a class="nav-link" routerLink="/profile/update" tabindex="-1">Modifier votre profile</a>
+    </div>
   </div>
-
 </div>
+
+<!-- Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Êtes-vous sûr de vouloir supprimer cette video?</h4>
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-danger" (click)="deleteVideo()">Supprimer</button>
+  <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Fermer</button>
+</div>
+</ng-template>
