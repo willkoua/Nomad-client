@@ -49,8 +49,8 @@ export class VideoService extends GlobalService {
   public getVideo(id: number) {
     const headers = this.getHeaders();
 
-    return this.httpClient.get<any>(
-      this.url_update_video,
+    return this.httpClient.get<Video>(
+      this.url_update_video + id,
       {headers: headers}
     );
   }

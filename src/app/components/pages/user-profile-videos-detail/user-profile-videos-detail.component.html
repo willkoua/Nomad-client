@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="container">
+    <section>
+      <h1>Profile de {{ this.user.last_name }} {{ this.user.first_name }}</h1>
+    </section>
+
+    <app-profile-user-header></app-profile-user-header>
+
+    <div *ngIf="video">
+      <div class="row">
+        <ul>
+          <li>Titre: {{ video.title ? video.title : 'no title' }}</li>
+          <li>duration: {{ video.duration }}</li>
+          <li>size: {{ video.size }}</li>
+          <li>description: {{ video.description }}</li>
+          <li>actif: {{ video.is_active }}</li>
+          <li>cree: {{ video.is_created | date }}</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a [routerLink]="['/video/update', video.id]" class="btn btn-link">Modifier</a>
+          </li>
+          <li class="list-inline-item">
+            <a  (click)="active_modal(content, video)" class="btn btn-link">Supprimer</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Êtes-vous sûr de vouloir supprimer cette video?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="deleteVideo()">Supprimer</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Fermer</button>
+  </div>
+</ng-template>

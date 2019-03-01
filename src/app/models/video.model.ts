@@ -12,5 +12,7 @@ export class Video extends BaseModel {
   file: string;
   size: number;
   is_deleted: Date;
+  is_active: boolean;
   is_actived: Date;
+  is_created: Date;
 }
