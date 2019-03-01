@@ -6,6 +6,8 @@
       <h1>Profile de {{ this.user.last_name }} {{ this.user.first_name }}</h1>
     </section>
 
+    <app-profile-user-header></app-profile-user-header>
+
     <div class="row">
       <ul>
         <li>Nom: {{ this.user.first_name }}</li>
@@ -17,9 +19,8 @@
       </ul>
     </div>
 
-    <div class="row">
-      <a routerLink="/profile/update">Modifier votre profile</a>
-    </div>
+    <div class="row"><a class="nav-link" routerLink="/profile/update" tabindex="-1">Modifier votre profile</a></div>
+
   </div>
 
 </div>

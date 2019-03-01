@@ -25,9 +25,14 @@ import { RegisterActivationComponent } from './components/pages/register-activat
 import { PageNotfoundComponent } from './components/pages/page-notfound/page-notfound.component';
 import {ProfileUserComponent} from './components/pages/profile-user/profile-user.component';
 import { ProfileUserUpdateComponent } from './components/pages/profile-user-update/profile-user-update.component';
-import { RegisterVideoComponent } from './components/pages/register-video/register-video.component';
 import { NgxUploaderModule } from 'ngx-uploader';
 import {VideoService} from './services/video.service';
+import { ProfileUserHeaderComponent } from './components/pages/profile-user-header/profile-user-header.component';
+import { UserProfileVideosComponent } from './components/pages/user-profile-videos/user-profile-videos.component';
+import { UserProfileVideosUpdateComponent } from './components/pages/user-profile-videos-update/user-profile-videos-update.component';
+import { UserProfileVideosRegisterComponent } from './components/pages/user-profile-videos-register/user-profile-videos-register.component';
+import { UserProfileVideosDetailComponent } from './components/pages/user-profile-videos-detail/user-profile-videos-detail.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [{
   path: '',
@@ -73,7 +78,20 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
-    { path: 'video', component: RegisterVideoComponent, canActivate: [
+    { path: 'video', component: UserProfileVideosRegisterComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    }
+    ,
+    { path: 'video/details/:id', component: UserProfileVideosDetailComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
+    { path: 'video/user', component: UserProfileVideosComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
+    { path: 'video/update/:id', component: UserProfileVideosUpdateComponent, canActivate: [
         CanActivateViaAuthGuard
       ]
     },
@@ -116,7 +134,11 @@ const appRoutes: Routes = [{
     PageNotfoundComponent,
     ProfileUserComponent,
     ProfileUserUpdateComponent,
-    RegisterVideoComponent,
+    ProfileUserHeaderComponent,
+    UserProfileVideosComponent,
+    UserProfileVideosUpdateComponent,
+    UserProfileVideosRegisterComponent,
+    UserProfileVideosDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -127,6 +149,7 @@ const appRoutes: Routes = [{
     BrowserAnimationsModule,
     NgxUploaderModule,
     SimpleNotificationsModule.forRoot(),
+    NgbModule,
   ],
   providers: [
     AuthService,
