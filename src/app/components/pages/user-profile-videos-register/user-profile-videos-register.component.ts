@@ -66,7 +66,7 @@ export class UserProfileVideosRegisterComponent implements OnInit {
         output.file.responseStatus !== 201) {
 
         this.showFormVideo = false;
-        this.errors.push(output.file.response);
+        this.errors.push(output.file.response.message);
         this.files = [];
         return;
       }
@@ -85,6 +85,7 @@ export class UserProfileVideosRegisterComponent implements OnInit {
     this.form2AddVideoForm = this.form2AddVideoBuilder.group({
       id: [this.videos[0], [Validators.required]],
       title: [null, [Validators.required]],
+      active: ['0', [Validators.required]],
       description: [null],
     });
   }
@@ -111,6 +112,8 @@ export class UserProfileVideosRegisterComponent implements OnInit {
     const video = {
       id: this.form2AddVideoForm.get('id').value,
       title: this.form2AddVideoForm.get('title').value,
+      is_actived: (this.form2AddVideoForm.get('active').value === '1') ?
+        new Date : new Date('1960-01-01'),
       description: this.form2AddVideoForm.get('description').value
     };
 
