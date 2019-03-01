@@ -28,10 +28,11 @@ import { ProfileUserUpdateComponent } from './components/pages/profile-user-upda
 import { NgxUploaderModule } from 'ngx-uploader';
 import {VideoService} from './services/video.service';
 import { ProfileUserHeaderComponent } from './components/pages/profile-user-header/profile-user-header.component';
-import { VideoRegisterComponent } from './components/pages/video-register/video-register.component';
 import { UserProfileVideosComponent } from './components/pages/user-profile-videos/user-profile-videos.component';
 import { UserProfileVideosUpdateComponent } from './components/pages/user-profile-videos-update/user-profile-videos-update.component';
 import { UserProfileVideosRegisterComponent } from './components/pages/user-profile-videos-register/user-profile-videos-register.component';
+import { UserProfileVideosDetailComponent } from './components/pages/user-profile-videos-detail/user-profile-videos-detail.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [{
   path: '',
@@ -78,6 +79,11 @@ const appRoutes: Routes = [{
       ]
     },
     { path: 'video', component: UserProfileVideosRegisterComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    }
+    ,
+    { path: 'video/details/:id', component: UserProfileVideosDetailComponent, canActivate: [
         CanActivateViaAuthGuard
       ]
     },
@@ -129,10 +135,10 @@ const appRoutes: Routes = [{
     ProfileUserComponent,
     ProfileUserUpdateComponent,
     ProfileUserHeaderComponent,
-    VideoRegisterComponent,
     UserProfileVideosComponent,
     UserProfileVideosUpdateComponent,
     UserProfileVideosRegisterComponent,
+    UserProfileVideosDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +149,7 @@ const appRoutes: Routes = [{
     BrowserAnimationsModule,
     NgxUploaderModule,
     SimpleNotificationsModule.forRoot(),
+    NgbModule,
   ],
   providers: [
     AuthService,
