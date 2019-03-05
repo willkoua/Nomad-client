@@ -45,9 +45,15 @@ export class UserProfileVideosComponent implements OnInit {
   }
 
   deleteVideo() {
-    this.videoAtDelete.is_deleted = new Date();
+    const videoAtDeleted = {
+      id: this.videoAtDelete.id,
+      title: this.videoAtDelete.title,
+      description: this.videoAtDelete.description,
+      is_deleted: new Date()
+    };
+    console.log(videoAtDeleted)
 
-    this.videoService.deleteVideo(this.videoAtDelete).subscribe(
+    this.videoService.deleteVideo(videoAtDeleted).subscribe(
       value => {
         const oldTabSize = this.listVideos.length - 1
         const index = this.listVideos.findIndex((x) => x.id === value.id);

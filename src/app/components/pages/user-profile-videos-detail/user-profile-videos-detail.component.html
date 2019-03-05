@@ -11,6 +11,12 @@
         <ul>
           <li>Titre: {{ video.title ? video.title : 'no title' }}</li>
           <li>duration: {{ video.duration }}</li>
+          <li>
+            Genre:
+            <ul *ngFor="let genre of video.genres">
+              <li>{{genre.label}}</li>
+            </ul>
+          </li>
           <li>size: {{ video.size }}</li>
           <li>description: {{ video.description }}</li>
           <li>actif: {{ video.is_active }}</li>

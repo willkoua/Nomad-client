@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import GlobalService from './globalService';
 import {UploadInput} from 'ngx-uploader';
-import {HttpParams, HttpParamsOptions} from '@angular/common/http/src/params';
 import {Video} from '../models/video.model';
 
 @Injectable({
@@ -55,7 +54,7 @@ export class VideoService extends GlobalService {
     );
   }
 
-  public deleteVideo(video: Video) {
+  public deleteVideo(video: any) {
     const headers = this.getHeaders();
 
     return this.httpClient.patch<any>(

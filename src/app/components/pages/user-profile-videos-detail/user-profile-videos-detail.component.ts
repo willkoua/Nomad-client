@@ -47,12 +47,17 @@ export class UserProfileVideosDetailComponent implements OnInit {
     );
   }
 
-  deleteVideo(video: Video) {
-    this.videoAtDelete.is_deleted = new Date();
+  deleteVideo() {
+    const videoAtDeleted = {
+      id: this.videoAtDelete.id,
+      title: this.videoAtDelete.title,
+      description: this.videoAtDelete.description,
+      is_deleted: new Date()
+    };
 
-    this.videoService.deleteVideo(this.videoAtDelete).subscribe(
+    this.videoService.deleteVideo(videoAtDeleted).subscribe(
       value => {
-        const video_title = value.title ? value.title : 'video';
+        const video_title = value.title ? value.title : 'video no title';
         this.notificationService.error(
           null,
           video_title + ' a été supprimée');
