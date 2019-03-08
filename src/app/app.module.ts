@@ -33,6 +33,7 @@ import { UserProfileVideosUpdateComponent } from './components/pages/user-profil
 import { UserProfileVideosRegisterComponent } from './components/pages/user-profile-videos-register/user-profile-videos-register.component';
 import { UserProfileVideosDetailComponent } from './components/pages/user-profile-videos-detail/user-profile-videos-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const appRoutes: Routes = [{
   path: '',
@@ -150,6 +151,7 @@ const appRoutes: Routes = [{
     NgxUploaderModule,
     SimpleNotificationsModule.forRoot(),
     NgbModule,
+    NgSelectModule,
   ],
   providers: [
     AuthService,

@@ -17,6 +17,9 @@ export const environment = {
     video: {
       create_list: '/videos/?param=user',
       update: '/videos/',
+    },
+    genre: {
+      list: '/videos/genres'
     }
   },
 };

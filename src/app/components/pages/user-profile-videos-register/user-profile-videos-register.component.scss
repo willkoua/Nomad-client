@@ -1,8 +1,10 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 $border_color: #eaeaea;
 
 .upload-box{
   &__content{
-    border: 1px solid $border_color;
+    border: 2px solid $border_color;
     margin-bottom: 20px;
 
     &__drop-container{

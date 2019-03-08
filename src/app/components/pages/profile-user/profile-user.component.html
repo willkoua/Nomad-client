@@ -14,7 +14,7 @@
         <li>Prenom: {{ this.user.last_name }}</li>
         <li>Email : {{ this.user.email }}</li>
         <li>Gender : {{ this.user.gender }}</li>
-        <li>Groupe : {{ this.user.groups[0].name }}</li>
+        <li>Groupe : {{ this.user.groups[0]?.name }}</li>
         <li>Join le : {{ this.user.date_joined | date:'medium' }}</li>
       </ul>
     </div>

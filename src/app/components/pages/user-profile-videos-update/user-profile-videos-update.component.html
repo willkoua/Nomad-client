@@ -37,6 +37,19 @@
             </div>
           </div>
 
+          <div class="form-group" *ngIf="(genres$ | async) as genres">
+            <label>Genre</label>
+            <ul *ngIf="videoGenres.length > 0">
+              <li *ngFor="let genre of videoGenres">
+                <a href="">X</a>
+                {{genre.label}}
+              </li>
+            </ul>
+            <ng-select [searchable]="true" formControlName="genres" [multiple]="true">
+              <ng-option [value]="genre" *ngFor="let genre of genres">{{genre.label}}</ng-option>
+            </ng-select>
+          </div>
+
           <div class="form-group">
             <label for="description">Description</label>
             <textarea name="" id="description" cols="30" rows="10" formControlName="description"
