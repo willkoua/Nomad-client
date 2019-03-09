@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 import {NotificationsService} from 'angular2-notifications';
-
 import {Genre, Video} from '../../../models/video.model';
 import {User} from '../../../models/user.model';
 import {AuthService} from '../../../services/auth.service';
 import {VideoService} from '../../../services/video.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+
+
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UploadFile} from 'ngx-uploader';
 
 @Component({
   selector: 'app-user-profile-videos-update',
@@ -23,6 +26,7 @@ export class UserProfileVideosUpdateComponent implements OnInit {
   user: User;
   genres$: Observable<Genre[]>;
   videoGenres: Genre[];
+  genreAtDelete: Genre;
 
   constructor(
     private formUpdateVideoBuider: FormBuilder,
@@ -30,7 +34,8 @@ export class UserProfileVideosUpdateComponent implements OnInit {
     private authService: AuthService,
     private notificationService: NotificationsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal
   ) {
     this.video = null;
   }
@@ -68,7 +73,6 @@ export class UserProfileVideosUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-
     const video = {
       id: this.formUpdateVideo.get('id').value,
       title: this.formUpdateVideo.get('title').value,
@@ -87,8 +91,37 @@ export class UserProfileVideosUpdateComponent implements OnInit {
       },
       error => {
         console.log(error);
+      },
+      () => {
+        this.router.navigate(['/video/user']);
       }
     );
+  }
+
+  delGenre() {
+    this.videoService.delGenreVideo(this.video.id, this.genreAtDelete.id).subscribe(
+      value => {
+        if (value) {
+          this.videoGenres = this.videoGenres.filter(
+            (genre: Genre) => genre.label !== value
+          );
+          this.notificationService.success(null, value + ' deleted');
+        } else {
+          this.notificationService.error(null, 'Erreur lors de la modification');
+        }
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        this.modalService.dismissAll();
+      }
+    );
+  }
+
+  active_modal(content, genre: Genre) {
+    this.modalService.open(content);
+    this.genreAtDelete = genre;
   }
 
 }

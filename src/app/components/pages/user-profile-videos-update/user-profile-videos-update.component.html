@@ -39,10 +39,12 @@
 
           <div class="form-group" *ngIf="(genres$ | async) as genres">
             <label>Genre</label>
-            <ul *ngIf="videoGenres.length > 0">
-              <li *ngFor="let genre of videoGenres">
-                <a href="">X</a>
-                {{genre.label}}
+            <ul *ngIf="videoGenres">
+              <li *ngFor="let videogenre of videoGenres">
+                <button type="button" class="close" aria-label="Close" (click)="active_modal(content, videogenre)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                {{videogenre.label}}
               </li>
             </ul>
             <ng-select [searchable]="true" formControlName="genres" [multiple]="true">
@@ -56,15 +58,26 @@
                       class="form-control" id="description"></textarea>
           </div>
         </div>
-
         <button class="btn btn-primary" type="submit"
                 [disabled]="formUpdateVideo.invalid">Modifier</button>
-
       </form>
     </div>
-
     <div class="row"><a class="nav-link" routerLink="/profile/update" tabindex="-1">Modifier votre profile</a></div>
+  </div>
+</div>
 
+<!-- Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Êtes-vous sûr de vouloir supprimer ce genre?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
 
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="delGenre()">Supprimer</button>
+    <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Fermer</button>
+  </div>
+</ng-template>
+

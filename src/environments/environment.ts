@@ -19,7 +19,8 @@ export const environment = {
       update: '/videos/',
     },
     genre: {
-      list: '/videos/genres'
+      list: '/videos/genres',
+      delete: '/videos/genres/delete'
     }
   },
 };
