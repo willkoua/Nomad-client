@@ -18,6 +18,7 @@ export class UserProfileVideosDetailComponent implements OnInit {
   video: Video;
   user: User;
   videoAtDelete: Video;
+  pathViewFile: string;
 
   constructor(
     private videoService: VideoService,
@@ -40,11 +41,19 @@ export class UserProfileVideosDetailComponent implements OnInit {
     this.videoService.getVideo(+id).subscribe(
       value => {
         this.video = value;
+        this.pathViewFile = this.getPathVideo();
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  getPathVideo() {
+    const arrayPath = this.video.file.split('/');
+    arrayPath.splice(3, 1);
+
+    return arrayPath.join('/');
   }
 
   deleteVideo() {
@@ -76,5 +85,4 @@ export class UserProfileVideosDetailComponent implements OnInit {
     this.modalService.open(content);
     this.videoAtDelete = video;
   }
-
 }

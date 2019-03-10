@@ -9,10 +9,7 @@ import {Genre, Video} from '../../../models/video.model';
 import {User} from '../../../models/user.model';
 import {AuthService} from '../../../services/auth.service';
 import {VideoService} from '../../../services/video.service';
-
-
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {UploadFile} from 'ngx-uploader';
 
 @Component({
   selector: 'app-user-profile-videos-update',

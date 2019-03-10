@@ -3,7 +3,6 @@ import {User} from './user.model';
 import DateTimeFormat = Intl.DateTimeFormat;
 
 export class Video extends BaseModel {
-
   id: number;
   title: string;
   description: string;
@@ -11,16 +10,16 @@ export class Video extends BaseModel {
   duration: number;
   file: string;
   size: number;
-  is_deleted: Date;
+  is_delete: Date;
   is_active: boolean;
-  is_actived: Date;
   is_created: Date;
   genres: Genre[];
+  is_path_file: string;
 }
 
 export class Genre extends BaseModel {
   id: number;
-  lasbel: string;
+  label: string;
   description: string;
 }
 
