@@ -14,7 +14,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-user-profile-videos-update',
   templateUrl: './user-profile-videos-update.component.html',
-  styleUrls: ['./user-profile-videos-update.component.scss']
+  styleUrls: ['./user-profile-videos-update.component.css']
 })
 export class UserProfileVideosUpdateComponent implements OnInit {
 
