@@ -34,6 +34,12 @@ import { UserProfileVideosRegisterComponent } from './components/pages/user-prof
 import { UserProfileVideosDetailComponent } from './components/pages/user-profile-videos-detail/user-profile-videos-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { VideoPlayerComponent } from './components/pages/video-player/video-player.component';
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+// import {SingleMediaPlayer} from './single-media-player';
 
 const appRoutes: Routes = [{
   path: '',
@@ -96,6 +102,10 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
+    { path: 'video/view/:id', component: VideoPlayerComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
     {
       path: '',
       redirectTo: '/index',
@@ -140,6 +150,8 @@ const appRoutes: Routes = [{
     UserProfileVideosUpdateComponent,
     UserProfileVideosRegisterComponent,
     UserProfileVideosDetailComponent,
+    VideoPlayerComponent,
+    // SingleMediaPlayer,
   ],
   imports: [
     BrowserModule,
@@ -152,6 +164,10 @@ const appRoutes: Routes = [{
     SimpleNotificationsModule.forRoot(),
     NgbModule,
     NgSelectModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
   ],
   providers: [
     AuthService,
@@ -159,6 +175,9 @@ const appRoutes: Routes = [{
     VideoService,
     CanActivateViaAuthGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    // SingleMediaPlayer
+  ]
 })
 export class AppModule { }
