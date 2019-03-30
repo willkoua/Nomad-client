@@ -12,10 +12,6 @@
               <li><input type="radio" value="g" formControlName="group">Je suis un guide</li>
             </ul>
         </div>
-        <div class="text-justify text-danger"
-             *ngFor="let errorMessage of signupForm.controls['gender'].getError('apiError')">
-          {{ errorMessage}}
-        </div>
       </div>
       <div class="form-group">
         <label for="lastname">Nom</label>
@@ -50,18 +46,18 @@
           {{ errorMessage}}
         </div>
       </div>
-      <div class="form-group">
-        <label>Sexe</label><br>
-        <div class="radio-inline">
-          <label><input type="radio" value="M" formControlName="gender"> Homme</label>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <label><input type="radio" value="F" formControlName="gender"> Femme</label>
-        </div>
-        <div class="text-justify text-danger"
-             *ngFor="let errorMessage of signupForm.controls['gender'].getError('apiError')">
-          {{ errorMessage}}
-        </div>
-      </div>
+      <!--<div class="form-group">-->
+        <!--<label>Sexe</label><br>-->
+        <!--<div class="radio-inline">-->
+          <!--<label><input type="radio" value="M" formControlName="gender"> Homme</label>-->
+          <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
+          <!--<label><input type="radio" value="F" formControlName="gender"> Femme</label>-->
+        <!--</div>-->
+        <!--<div class="text-justify text-danger"-->
+             <!--*ngFor="let errorMessage of signupForm.controls['gender'].getError('apiError')">-->
+          <!--{{ errorMessage}}-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="form-group">
         <label for="password">Mot de passe</label>
         <input type="password"

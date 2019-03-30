@@ -95,7 +95,7 @@ export class UserProfileVideosRegisterComponent implements OnInit {
   initForm() {
     this.form2AddVideoForm = this.form2AddVideoBuilder.group({
       id: [this.videos[0], [Validators.required]],
-      title: [null, [Validators.required]],
+      title: [null],
       active: ['0', [Validators.required]],
       description: [null],
       genres: [null],
