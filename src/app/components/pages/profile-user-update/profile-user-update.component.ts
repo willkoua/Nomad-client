@@ -123,9 +123,6 @@ export class ProfileUserUpdateComponent implements OnInit {
         if (err.error.password) {
           this.updatePwdForm.controls['password'].setErrors({'apiError': err.error.password});
         }
-      },
-      () => {
-        window.location.reload();
       }
     );
   }

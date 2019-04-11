@@ -51,7 +51,6 @@ export class UserProfileVideosComponent implements OnInit {
       description: this.videoAtDelete.description,
       is_deleted: new Date()
     };
-    console.log(videoAtDeleted)
 
     this.videoService.deleteVideo(videoAtDeleted).subscribe(
       value => {

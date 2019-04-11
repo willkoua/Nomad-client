@@ -20,7 +20,7 @@ export class LoginLayoutComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.getProfile()) {
-      this.router.navigate(['index']);
+      this.router.navigate(['']);
     }
   }
 

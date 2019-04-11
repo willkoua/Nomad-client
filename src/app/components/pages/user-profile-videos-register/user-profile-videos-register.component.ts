@@ -3,6 +3,10 @@ import {VideoService} from '../../../services/video.service';
 import {NotificationsService} from 'angular2-notifications';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput, UploadStatus} from 'ngx-uploader';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {Genre} from '../../../models/video.model';
+import { map } from 'rxjs/operators';
+import {NgSelectConfig, NgSelectModule} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-user-profile-videos-register',
@@ -20,12 +24,16 @@ export class UserProfileVideosRegisterComponent implements OnInit {
   form2AddVideoForm: FormGroup;
   videos: object[];
   showFormVideo: boolean
+  genres$: Observable<Genre[]>;
 
   constructor(
     private form2AddVideoBuilder: FormBuilder,
     private videoService: VideoService,
     private notificationService: NotificationsService,
+    private config: NgSelectConfig
   ) {
+    this.config.notFoundText = 'Video genre not found';
+
     this.options = {
       concurrency: 1,
       // allowedContentTypes: ['mp4'],
@@ -79,14 +87,18 @@ export class UserProfileVideosRegisterComponent implements OnInit {
     this.files = this.files.filter(file => file.progress.status !== UploadStatus.Done);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.genres$ = this.videoService.getListGenres()
+      .pipe(map(result => result.results));
+  }
 
   initForm() {
     this.form2AddVideoForm = this.form2AddVideoBuilder.group({
       id: [this.videos[0], [Validators.required]],
-      title: [null, [Validators.required]],
+      title: [null],
       active: ['0', [Validators.required]],
       description: [null],
+      genres: [null],
     });
   }
 
@@ -114,8 +126,11 @@ export class UserProfileVideosRegisterComponent implements OnInit {
       title: this.form2AddVideoForm.get('title').value,
       is_actived: (this.form2AddVideoForm.get('active').value === '1') ?
         new Date : new Date('1960-01-01'),
-      description: this.form2AddVideoForm.get('description').value
+      description: this.form2AddVideoForm.get('description').value,
+      genres: this.form2AddVideoForm.get('genres').value,
     };
+
+    console.log(video.genres)
 
     this.videoService.updateVideo(video, video.id).subscribe(
       value => {

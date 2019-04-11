@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import GlobalService from './globalService';
 import {UploadInput} from 'ngx-uploader';
-import {Video} from '../models/video.model';
+import {PagedResults, Video, Genre} from '../models/video.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,8 @@ import {Video} from '../models/video.model';
 export class VideoService extends GlobalService {
   url_update_video = environment.url_base_api + environment.paths_api.video.update;
   url_save_list_video = environment.url_base_api + environment.paths_api.video.create_list;
+  url_list_genre = environment.url_base_api + environment.paths_api.genre.list;
+  url_delete_genre_video = environment.url_base_api + environment.paths_api.genre.delete;
 
   constructor(private httpClient: HttpClient) {
     super();
@@ -64,4 +66,25 @@ export class VideoService extends GlobalService {
     );
   }
 
+  /**
+   * Services Genre
+   */
+  public getListGenres(): Observable<PagedResults<Video>> {
+    const headers = this.getHeaders();
+
+    return this.httpClient.get<PagedResults<Video>>(
+      this.url_list_genre,
+      {headers: headers}
+    );
+  }
+
+  public delGenreVideo(videoId: number, genreId: number) {
+    const headers = this.getHeaders();
+
+    return this.httpClient.patch<any>(
+      this.url_delete_genre_video,
+      {genre: genreId, video: videoId},
+      {headers: headers}
+    );
+  }
 }

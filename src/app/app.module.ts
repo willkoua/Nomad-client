@@ -12,7 +12,7 @@ import { SignupComponent } from './components/pages/login_signup/signup.componen
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import {AuthService} from './services/auth.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
 import {DefaultLayoutComponent} from './layouts/default-layout/default-layout.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import {UserService} from './services/user.service';
@@ -33,6 +33,13 @@ import { UserProfileVideosUpdateComponent } from './components/pages/user-profil
 import { UserProfileVideosRegisterComponent } from './components/pages/user-profile-videos-register/user-profile-videos-register.component';
 import { UserProfileVideosDetailComponent } from './components/pages/user-profile-videos-detail/user-profile-videos-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { VideoPlayerComponent } from './components/pages/video-player/video-player.component';
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+
 
 const appRoutes: Routes = [{
   path: '',
@@ -95,6 +102,10 @@ const appRoutes: Routes = [{
         CanActivateViaAuthGuard
       ]
     },
+    { path: 'video/view/:id', component: VideoPlayerComponent, canActivate: [
+        CanActivateViaAuthGuard
+      ]
+    },
     {
       path: '',
       redirectTo: '/index',
@@ -139,6 +150,8 @@ const appRoutes: Routes = [{
     UserProfileVideosUpdateComponent,
     UserProfileVideosRegisterComponent,
     UserProfileVideosDetailComponent,
+    VideoPlayerComponent,
+    // SingleMediaPlayer,
   ],
   imports: [
     BrowserModule,
@@ -150,6 +163,11 @@ const appRoutes: Routes = [{
     NgxUploaderModule,
     SimpleNotificationsModule.forRoot(),
     NgbModule,
+    NgSelectModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
   ],
   providers: [
     AuthService,
@@ -157,6 +175,9 @@ const appRoutes: Routes = [{
     VideoService,
     CanActivateViaAuthGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    // SingleMediaPlayer
+  ]
 })
 export class AppModule { }
