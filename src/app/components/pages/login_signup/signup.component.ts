@@ -57,6 +57,10 @@ export class SignupComponent implements OnInit {
     const $btn_submit = $('#btn-submit-save-user');
     $btn_submit.attr('disabled', 'disabled');
 
+    let gender = this.signupForm.get('gender').value
+    if (gender === null) {
+      gender = 'A';
+    }
     const user = {
       // The username has been removed because it is not useful.
       // So username = email
@@ -65,7 +69,7 @@ export class SignupComponent implements OnInit {
       last_name: this.signupForm.get('lastname').value,
       email: this.signupForm.get('email').value,
       password: this.signupForm.get('password').value,
-      gender: this.signupForm.get('gender').value,
+      gender: gender,
       group: this.signupForm.get('group').value,
     };
 

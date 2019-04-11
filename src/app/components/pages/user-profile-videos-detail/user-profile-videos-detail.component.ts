@@ -18,6 +18,7 @@ export class UserProfileVideosDetailComponent implements OnInit {
   video: Video;
   user: User;
   videoAtDelete: Video;
+  pathViewFile: string;
 
   constructor(
     private videoService: VideoService,
@@ -40,6 +41,7 @@ export class UserProfileVideosDetailComponent implements OnInit {
     this.videoService.getVideo(+id).subscribe(
       value => {
         this.video = value;
+        this.pathViewFile = this.getPathVideo();
       },
       error => {
         console.log(error);
@@ -47,12 +49,24 @@ export class UserProfileVideosDetailComponent implements OnInit {
     );
   }
 
-  deleteVideo(video: Video) {
-    this.videoAtDelete.is_deleted = new Date();
+  getPathVideo() {
+    const arrayPath = this.video.file.split('/');
+    arrayPath.splice(3, 1);
 
-    this.videoService.deleteVideo(this.videoAtDelete).subscribe(
+    return arrayPath.join('/');
+  }
+
+  deleteVideo() {
+    const videoAtDeleted = {
+      id: this.videoAtDelete.id,
+      title: this.videoAtDelete.title,
+      description: this.videoAtDelete.description,
+      is_deleted: new Date()
+    };
+
+    this.videoService.deleteVideo(videoAtDeleted).subscribe(
       value => {
-        const video_title = value.title ? value.title : 'video';
+        const video_title = value.title ? value.title : 'video no title';
         this.notificationService.error(
           null,
           video_title + ' a été supprimée');
@@ -71,5 +85,4 @@ export class UserProfileVideosDetailComponent implements OnInit {
     this.modalService.open(content);
     this.videoAtDelete = video;
   }
-
 }

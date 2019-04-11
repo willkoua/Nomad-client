@@ -8,25 +8,42 @@
 
     <div *ngIf="video">
       <div class="row">
-        <ul>
-          <li>Titre: {{ video.title ? video.title : 'no title' }}</li>
-          <li>duration: {{ video.duration }}</li>
-          <li>size: {{ video.size }}</li>
-          <li>description: {{ video.description }}</li>
-          <li>actif: {{ video.is_active }}</li>
-          <li>cree: {{ video.is_created | date }}</li>
-        </ul>
-      </div>
+        <div class="col-md-7">
+          <video width="100%" height="300" controls preload="metadata">
+          <source src="{{pathViewFile}}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+          <a [routerLink]="['/video/view', video.id]">
+            Voir la video
+          </a>
+        </div>
+        <div class="col-md-5">
+          <div class="col-md-12">
+            <ul>
+              <li><b>Titre:</b> {{ video.title ? video.title : 'no title' }}</li>
+              <li><b>Duration:</b> {{ video.duration }}</li>
+              <li><b>Size:</b> {{ video.size }}</li>
+              <li><b>Description:</b> {{ video.description }}</li>
+              <li>actif: {{ video.is_active }}</li>
+              <li>cree: {{ video.is_created | date }}</li>
+            </ul>
+            <div>
+              <span *ngFor="let genre of video.genres" class="badge badge-pill badge-info">{{genre.label}}</span>
+            </div>
+          </div>
 
-      <div class="row">
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a [routerLink]="['/video/update', video.id]" class="btn btn-link">Modifier</a>
-          </li>
-          <li class="list-inline-item">
-            <a  (click)="active_modal(content, video)" class="btn btn-link">Supprimer</a>
-          </li>
-        </ul>
+          <div class="col-md-12">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a [routerLink]="['/video/update', video.id]" class="btn btn-link">Modifier</a>
+              </li>
+              <li class="list-inline-item">
+                <a (click)="active_modal(content, video)" class="btn btn-link">Supprimer</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

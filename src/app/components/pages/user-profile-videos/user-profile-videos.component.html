@@ -11,26 +11,26 @@
     <div class="row">
       <ul class="list-group list-group-flush" *ngIf="listVideos">
         <li class="list-group-item" *ngFor="let video of listVideos" >
-          <a href="">{{video.title ? video.title : 'no title'}}</a>
+          <a [routerLink]="['/video/details', video.id]">
+            {{video.title ? video.title : 'no title'}}
+          </a>
           <small *ngIf="!video.is_active"><i class="badge badge-danger">inactif</i></small>
           <ul class="list-inline">
-            <li class="list-inline-item">
-              [<a [routerLink]="['/video/update', video.id]"><i><small>Modifier</small></i></a>
+            [<li class="list-inline-item">
+              <a class="btn btn-link" [routerLink]="['/video/update', video.id]">
+                <i><small>Modifier</small></i>
+              </a>
             </li>
             <li class="list-inline-item">
-              <a [routerLink]="['/video/details', video.id]" class="btn btn-link"><i><small>Détail</small></i></a>
-            </li>
-            <li class="list-inline-item">
-              <!--<a (click)="deleteVideo(video)" class="btn btn-link"><i><small>Supprimer</small></i></a>]-->
               <a class="btn btn-link" (click)="active_modal(content, video)">
                 <i><small>Supprimer</small></i>
-              </a>]
-            </li>
+              </a>
+            </li>]
           </ul>
         </li>
       </ul>
       <div class="alert alert-success" role="alert" *ngIf="listVideos.length == 0">
-        Aucune video n'est actuellement disponible
+        Vous n'avez aucunes vidéos disponibles
       </div>
     </div>
 
