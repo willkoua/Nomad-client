@@ -12,7 +12,7 @@ import { SignupComponent } from './components/pages/login_signup/signup.componen
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import {AuthService} from './services/auth.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
 import {DefaultLayoutComponent} from './layouts/default-layout/default-layout.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import {UserService} from './services/user.service';
